@@ -113,7 +113,30 @@ const getAllProblems = async (req, res) => {
   }
 };
 const getProblemById = async (req, res) => {
-  res.send("problem created");
+  const { id } = req.params;
+
+  try {
+    const problem = await db.problem.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!problem) {
+      return res.status(404).json({ error: "Problem not found." });
+    }
+
+    return res.status(200).json({
+      sucess: true,
+      message: "Message Created Successfully",
+      problem,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Error While Fetching Problem by id",
+    });
+  }
 };
 const updateProblem = async (req, res) => {
   res.send("problem created");
