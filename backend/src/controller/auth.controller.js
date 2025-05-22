@@ -9,7 +9,7 @@ const registerUser = async (req, res) => {
     const existingUser = db.user.findUnique({
       where: { email },
     });
-    if (existingUser) {
+    if (!existingUser) {
       return res.status(400).json({
         success: false,
         error: "User already registered",
