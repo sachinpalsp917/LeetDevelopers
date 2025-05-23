@@ -74,6 +74,40 @@ export const getPlayListDetails = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch playlist" });
   }
 };
-export const addProblemToPlaylist = async (req, res) => {};
+export const addProblemToPlaylist = async (req, res) => {
+  const { playlistId } = req.params;
+  const { problemIds } = req.body; // Accept an array of problem IDs
+
+  try {
+    // Ensure problemIds is an array
+    if (!Array.isArray(problemIds) || problemIds.length === 0) {
+      return res.status(400).json({ error: "Invalid or missing problemIds" });
+    }
+
+    console.log(
+      problemIds.map((problemId) => ({
+        playlistId,
+        problemId,
+      }))
+    );
+
+    // Create records for each problem in the playlist
+    const problemsInPlaylist = await db.problemInPlaylist.createMany({
+      data: problemIds.map((problemId) => ({
+        playListId: playlistId, // ✅ match your Prisma field name exactly
+        problemId,
+      })),
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Problems added to playlist successfully",
+      problemsInPlaylist,
+    });
+  } catch (error) {
+    console.error("Error adding problems to playlist:", error.message);
+    res.status(500).json({ error: "Failed to add problems to playlist" });
+  }
+};
 export const deletePlayList = async (req, res) => {};
 export const removeProblemFromPlaylist = async (req, res) => {};
