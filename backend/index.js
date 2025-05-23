@@ -5,6 +5,7 @@ import authRoutes from "./src/routes/auth.route.js";
 import problemRoutes from "./src/routes/problem.route.js";
 import executionRoute from "./src/routes/executeCode.route.js";
 import submissionRoutes from "./src/routes/submission.route.js";
+import playlistRoutes from "./src/routes/playlist.route.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use("/api/v1/users", authRoutes);
 app.use("/api/v1/problems", problemRoutes);
 app.use("/api/v1/execute-code", executionRoute);
 app.use("/api/v1/submission", submissionRoutes);
+app.use("/api/v1/playlist", playlistRoutes);
 
 app.listen(port, () => {
   console.log(`Server running at port: `, port);
