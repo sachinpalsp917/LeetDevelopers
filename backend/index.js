@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import authRoutes from "./src/routes/auth.route.js";
 import problemRoutes from "./src/routes/problem.route.js";
 import executionRoute from "./src/routes/executeCode.route.js";
@@ -13,6 +14,12 @@ const port = process.env.PORT || 4000;
 
 const app = express();
 
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
