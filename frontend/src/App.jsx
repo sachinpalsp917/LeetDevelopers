@@ -4,8 +4,9 @@ import { Toaster } from "react-hot-toast";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
-import { useAuthStore } from "./store/useAuthSTore";
+import { useAuthStore } from "./store/useAuthStore.js";
 import { Loader } from "lucide-react";
+import Layout from "./Layout/Layout.jsx";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -27,10 +28,12 @@ const App = () => {
       <div className="flex flex-col justify-start items-center">
         <Toaster />
         <Routes>
-          <Route
-            path="/"
-            element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
-          />
+          <Route path="/" element={<Layout />}>
+            <Route
+              path="/"
+              element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
+            />
+          </Route>
           <Route
             path="/login"
             element={!authUser ? <LoginPage /> : <Navigate to={"/"} />}

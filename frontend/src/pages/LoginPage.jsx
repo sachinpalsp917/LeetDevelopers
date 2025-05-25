@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import { Code, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { Code, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { z } from "zod";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { useAuthStore } from "../store/useAuthStore.js";
@@ -13,7 +13,7 @@ const LoginSchema = z.object({
 });
 
 const LoginPage = () => {
-  const { login, isLoggingIn } = useAuthStore;
+  const { login, isLoggingIn } = useAuthStore();
   const {
     register,
     handleSubmit,
