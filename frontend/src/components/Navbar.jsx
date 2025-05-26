@@ -49,15 +49,7 @@ const Navbar = () => {
                 <p className="text-base font-semibold">{authUser?.name}</p>
                 <hr className="border-gray-200/10" />
               </li>
-              <li>
-                <Link
-                  to="/profile"
-                  className="hover:bg-primary hover:text-white text-base font-semibold"
-                >
-                  <User className="w-4 h-4 mr-2" />
-                  My Profile
-                </Link>
-              </li>
+
               {authUser?.role === "ADMIN" && (
                 <li>
                   <Link
